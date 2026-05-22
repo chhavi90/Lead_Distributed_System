@@ -48,10 +48,11 @@ Key Features
 Architecture:
 
 Database Schema
-Services (3 total)
-├── Service 1
-├── Service 2
-└── Service 3
+
+      Services (3 total)
+      ├── Service 1
+      ├── Service 2
+      └── Service 3
 
       Providers (8 total)
       ├── Provider 1->8
@@ -214,38 +215,38 @@ Benefits:
 -> No duplicate quota resets
 -> Exactly->once semantics
 
-Project Structure
+Project Structure:
 
-LEAD_DISTRIBUTION_SYSTEM/
-├── pages/
-│ ├── api/
-│ │ ├── leads.ts
-│ │ ├── services.ts
-│ │ ├── provider/[id].ts  
-│ │ └── webhook/quota-reset.ts
-│ ├── request-service.tsx
-│ ├── dashboard.tsx
-│ ├── test-tools.tsx
-│ └── _app.tsx
-├── lib/
-│ ├── allocation.ts
-│ └── websocket.ts
-├── styles/
-│ ├── form.module.css
-│ ├── app.module.css
-│ ├── globals.css
-│ ├── home.module.css
-│ ├── dashboard.module.css
-│ └── test-tools.module.css
-├── prisma/
-│ └── schema.prisma
-├── scripts/
-│ ├── migrate.js
-│ └── seed.js
-├── server.js
-├── next.config.js
-├── package.json
-└── .env
+      LEAD_DISTRIBUTION_SYSTEM/
+      ├── pages/
+      │ ├── api/
+      │ │ ├── leads.ts
+      │ │ ├── services.ts
+      │ │ ├── provider/[id].ts  
+      │ │ └── webhook/quota-reset.ts
+      │ ├── request-service.tsx
+      │ ├── dashboard.tsx
+      │ ├── test-tools.tsx
+      │ └── _app.tsx
+      ├── lib/
+      │ ├── allocation.ts
+      │ └── websocket.ts
+      ├── styles/
+      │ ├── form.module.css
+      │ ├── app.module.css
+      │ ├── globals.css
+      │ ├── home.module.css
+      │ ├── dashboard.module.css
+      │ └── test-tools.module.css
+      ├── prisma/
+      │ └── schema.prisma
+      ├── scripts/
+      │ ├── migrate.js
+      │ └── seed.js
+      ├── server.js
+      ├── next.config.js
+      ├── package.json
+      └── .env
 
 Testing:
 
