@@ -1,8 +1,8 @@
-Prowider Mini Lead Distribution System
+# Prowider Mini Lead Distribution System
 
 A FullStack Lead Generation and Distribution System with real-time updates, fair allocation logic and webhook idempotency.
 
-Project Overview
+## Project Overview
 
 This system manages lead distribution across multiple service providers with:
 -> Automatic lead allocation based on business rules
@@ -11,43 +11,46 @@ This system manages lead distribution across multiple service providers with:
 -> Webhook idempotency for safe quota resets
 -> Concurrency handling for simultaneous lead creation
 
-Key Features
+## Key Features
 
-1. Customer Service Request Form
-   -> Route: `/request->service`
-   -> Clean, responsive form for submitting service requests
-   -> Duplicate prevention: Same phone number cannot request the same service twice
-   -> Automatic provider assignment on submission
+### 1. Customer Service Request Form
 
-2. Lead Distribution System
-   Mandatory Assignment Rules:
-   -> Service 1 → Always assigned to Provider 1
-   -> Service 2 → Always assigned to Provider 5
-   -> Service 3 → Always assigned to Providers 1 & 4
+-> Route: `/request->service`
+-> Clean, responsive form for submitting service requests
+-> Duplicate prevention: Same phone number cannot request the same service twice
+-> Automatic provider assignment on submission
 
-   Fair Allocation:
-   -> Each lead assigned to exactly 3 providers total
-   -> Remaining slots distributed using round->robin
-   -> Allocation state persists across server restarts
-   -> Respects monthly quotas (10 leads per provider)
+###2. Lead Distribution System
+Mandatory Assignment Rules:
+-> Service 1 → Always assigned to Provider 1
+-> Service 2 → Always assigned to Provider 5
+-> Service 3 → Always assigned to Providers 1 & 4
 
-3. Provider Dashboard
-   -> Route: `/dashboard`
-   -> Real->time lead updates via WebSocket
-   -> Provider selection (8 providers available)
-   -> Statistics: quota, received leads, utilization rate
-   -> Live lead feed showing newly assigned requests
+Fair Allocation:
+-> Each lead assigned to exactly 3 providers total
+-> Remaining slots distributed using round->robin
+-> Allocation state persists across server restarts
+-> Respects monthly quotas (10 leads per provider)
 
-4. Webhook Simulation & Testing
-   -> Route: `/test->tools`
-   -> Reset provider quota
-   -> Test webhook idempotency (call multiple times with same ID)
-   -> Generate 10 concurrent leads
-   -> Comprehensive test result logging
+### 3. Provider Dashboard
 
-Architecture:
+-> Route: `/dashboard`
+-> Real->time lead updates via WebSocket
+-> Provider selection (8 providers available)
+-> Statistics: quota, received leads, utilization rate
+-> Live lead feed showing newly assigned requests
 
-Database Schema
+### 4. Webhook Simulation & Testing
+
+-> Route: `/test->tools`
+-> Reset provider quota
+-> Test webhook idempotency (call multiple times with same ID)
+-> Generate 10 concurrent leads
+-> Comprehensive test result logging
+
+## Architecture:
+
+### Database Schema
 
       Services (3 total)
       ├── Service 1
@@ -77,76 +80,86 @@ Database Schema
       ├── Quota reset records
       └── Processed flag
 
-Concurrency Handling
+### Concurrency Handling
+
 -> Database->level unique constraints prevent duplicate allocations
 -> Allocation lock mechanism for atomic transactions
 -> Webhook idempotency via externalId unique index
 -> Fair allocation state atomic updates
 
-Real-Time Communication
+### Real-Time Communication
+
 -> WebSocket server for live updates
 -> Automatic client subscription by provider ID
 -> Broadcasting new leads and quota updates
 -> Connection status indicator on dashboard
 
-Setup Instructions
+## Setup Instructions
 
-Prerequisites
+### Prerequisites
+
 -> Node.js 16+
 -> PostgreSQL 12+
 -> npm or yarn
 
-1. Clone & Install:
-   git clone <repository->url>
-   cd prowider->system
-   npm install
+### 1. Clone & Install:
 
-2. Database Setup:
-   Create a PostgreSQL database:
-   createdb prowider_db
+git clone <repository->url>
+cd prowider->system
+npm install
 
-3. Environment Configuration:
-   Create `.env.local`:
-   cp .env.example .env.local
+### 2. Database Setup:
 
-   Update with your database URL:
-   env:
-   DATABASE_URL="postgresql://user:password@localhost:5432/prowider_db"
-   NEXT_PUBLIC_API_URL="http://localhost:5000"
-   NODE_ENV="development"
+Create a PostgreSQL database:
+createdb prowider_db
 
-4. Run Migrations:
-   npm run migrate
+### 3. Environment Configuration:
 
-5. Seed Database:
-   npm run seed
+Create `.env.local`:
+cp .env.example .env.local
 
-   This creates:
-   -> 3 Services (Service 1, 2, 3)
-   -> 8 Providers with 10 leads/month quota
-   -> Fair allocation state for each service
+Update with your database URL:
+env:
+DATABASE_URL="postgresql://user:password@localhost:5432/prowider_db"
+NEXT_PUBLIC_API_URL="http://localhost:5000"
+NODE_ENV="development"
 
-6. Start Development Server:
-   npm run dev
+### 4. Run Migrations:
+
+npm run migrate
+
+### 5. Seed Database:
+
+npm run seed
+
+This creates:
+-> 3 Services (Service 1, 2, 3)
+-> 8 Providers with 10 leads/month quota
+-> Fair allocation state for each service
+
+### 6. Start Development Server:
+
+npm run dev
 
 Server runs at `http://localhost:5000`:
-Usage Guide
 
-Customer Flow
+## Usage Guide
+
+### Customer Flow
 
 1.  Visit `/request->service`
 2.  Fill form with details
 3.  Submit request
 4.  System automatically assigns to 3 providers
 
-Provider Flow
+### Provider Flow
 
 1.  Visit `/dashboard`
 2.  Select your provider number
 3.  Real->time leads appear as assigned
 4.  Monitor quota utilization
 
-Testing Flow
+### Testing Flow
 
 1.  Visit `/test->tools`
 2.  Select provider
@@ -156,8 +169,9 @@ Testing Flow
     -> Generate 10 concurrent leads
 4.  View detailed test results
 
-Algorithm Details:
-Fair Allocation Algorithm
+## Algorithm Details:
+
+### Fair Allocation Algorithm
 
 Step 1: Mandatory Assignment
 -> Assign required providers for service type
@@ -185,7 +199,8 @@ Persistence:
 -> Survives server restarts
 -> Ensures consistency across deployments
 
-Concurrency Safety:
+### Concurrency Safety:
+
 Unique Constraints:
 -> Prevent duplicate leads
 UNIQUE (phoneNumber, serviceId)
@@ -201,7 +216,8 @@ Atomic Operations:
 -> Quota checks before assignment
 -> Allocation state updates atomically
 
-Webhook Idempotency
+### Webhook Idempotency
+
 Mechanism:
 
 1.  Client provides `webhookId` (unique identifier)
@@ -215,14 +231,14 @@ Benefits:
 -> No duplicate quota resets
 -> Exactly->once semantics
 
-Project Structure:
+## Project Structure:
 
       LEAD_DISTRIBUTION_SYSTEM/
       ├── pages/
       │ ├── api/
       │ │ ├── leads.ts
       │ │ ├── services.ts
-      │ │ ├── provider/[id].ts  
+      │ │ ├── provider/[id].ts
       │ │ └── webhook/quota-reset.ts
       │ ├── request-service.tsx
       │ ├── dashboard.tsx
@@ -248,9 +264,10 @@ Project Structure:
       ├── package.json
       └── .env
 
-Testing:
+## Testing:
 
-Manual Test Cases:
+### Manual Test Cases:
+
 Test 1: Duplicate Prevention
 
 1.  Submit lead: Phone 9999999999, Service 1
@@ -291,84 +308,89 @@ Test 5: Webhook Idempotency
 4.  Provider quota should be 10 (not 30)
 5.  Verify processed flag in WebhookEvents table
 
-Error Handling
+## Error Handling
 
 The system gracefully handles:
-   -> Database connection failures
-   -> WebSocket disconnections (automatic reconnect)
-   -> Duplicate lead submissions
-   -> Quota exhaustion
-   -> Concurrent allocation conflicts
-   -> Invalid service/provider IDs
-   -> Network failures
+-> Database connection failures
+-> WebSocket disconnections (automatic reconnect)
+-> Duplicate lead submissions
+-> Quota exhaustion
+-> Concurrent allocation conflicts
+-> Invalid service/provider IDs
+-> Network failures
 
-Performance Considerations
-   -> Database indexes on frequently queried fields
-   -> Connection pooling via Prisma
-   -> WebSocket efficient broadcasting (only to relevant clients)
-   -> Fair allocation O(n) complexity where n = pool size
-   -> Quota checks using indexed queries
+## Performance Considerations
 
-Security
-   -> Input validation on all API endpoints
-   -> SQL injection prevention via Prisma ORM
-   -> CSRF protection ready (can add next->csrf)
-   -> No sensitive data in WebSocket messages
-   -> Rate limiting ready for webhook endpoints
+-> Database indexes on frequently queried fields
+-> Connection pooling via Prisma
+-> WebSocket efficient broadcasting (only to relevant clients)
+-> Fair allocation O(n) complexity where n = pool size
+-> Quota checks using indexed queries
 
-Common Issues & Solutions
+## Security
+
+-> Input validation on all API endpoints
+-> SQL injection prevention via Prisma ORM
+-> CSRF protection ready (can add next->csrf)
+-> No sensitive data in WebSocket messages
+-> Rate limiting ready for webhook endpoints
+
+## Common Issues & Solutions
+
 WebSocket Connection Failed
-   -> Check custom server is running (not next dev)
-   -> Verify browser allows WebSocket connections
-   -> Check firewall allows port 5000
+-> Check custom server is running (not next dev)
+-> Verify browser allows WebSocket connections
+-> Check firewall allows port 5000
 
 Migrations Failed
-   -> Ensure PostgreSQL is running
-   -> Check DATABASE_URL is correct
-   -> Run: `npx prisma migrate reset` (resets database)
+-> Ensure PostgreSQL is running
+-> Check DATABASE_URL is correct
+-> Run: `npx prisma migrate reset` (resets database)
 
 Seed Failed
-   -> Database might already have data
-   -> Run: `npx prisma db seed` to retry
+-> Database might already have data
+-> Run: `npx prisma db seed` to retry
 
-API Endpoints
-Leads
-   -> `POST /api/leads` -> Create lead (triggers allocation)
-   -> `GET /api/leads` -> List all leads
+## API Endpoints
 
-Services
-   -> `GET /api/services` -> List services
+### Leads
 
-Provider
-   -> `GET /api/provider/[id]` -> Get provider data & assigned leads
+-> `POST /api/leads` -> Create lead (triggers allocation)
+-> `GET /api/leads` -> List all leads
 
-Webhook
-   -> `POST /api/webhook/quota->reset` -> Reset quota (idempotent)
+### Services
 
-Deployment:
-Railway/Heroku
+-> `GET /api/services` -> List services
 
-# Set environment variable
+### Provider
 
+-> `GET /api/provider/[id]` -> Get provider data & assigned leads
+
+### Webhook
+
+-> `POST /api/webhook/quota->reset` -> Reset quota (idempotent)
+
+## Deployment:
+
+### Railway/Heroku
+
+Set environment variable:
 heroku config:set DATABASE_URL=postgresql://...
 
-# Deploy
-
+Deploy:
 git push heroku main
 
-Vercel + Neon (PostgreSQL)
+### Vercel + Neon (PostgreSQL)
 
-# Connect Neon database
-
+Connect Neon database:
 vercel env add DATABASE_URL
 
-# Deploy
-
+Deploy:
 vercel deploy
 
 Note: Custom server (server.js) means you'll need a platform that supports custom servers (Railway, Render, Fly.io, VPS).
 
-Support
+## Support
 
 For issues or questions:
 
@@ -376,8 +398,5 @@ For issues or questions:
 2.  Review browser console for client errors
 3.  Check server logs for backend errors
 4.  Verify database connectivity
-
-License:
-MIT
 
 Built with: Next.js, PostgreSQL, Prisma, WebSocket
