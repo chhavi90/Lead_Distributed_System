@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+build/
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.pid
+
+# Misc
+.cache/
+.turbo/
+turbo.json
+
+# Production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Prisma
+prisma/.env*
