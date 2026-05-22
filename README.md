@@ -111,7 +111,7 @@ Prerequisites
    Update with your database URL:
    env:
    DATABASE_URL="postgresql://user:password@localhost:5432/prowider_db"
-   NEXT_PUBLIC_API_URL="http://localhost:3000"
+   NEXT_PUBLIC_API_URL="http://localhost:5000"
    NODE_ENV="development"
 
 4. Run Migrations:
@@ -226,7 +226,7 @@ LEAD_DISTRIBUTION_SYSTEM/
 │ ├── request-service.tsx
 │ ├── dashboard.tsx
 │ ├── test-tools.tsx
-│ └── _app.tsx
+│ └── \_app.tsx
 ├── lib/
 │ ├── allocation.ts
 │ └── websocket.ts
@@ -319,7 +319,7 @@ Common Issues & Solutions
 WebSocket Connection Failed
 -> Check custom server is running (not next dev)
 -> Verify browser allows WebSocket connections
--> Check firewall allows port 3000
+-> Check firewall allows port 5000
 
 Migrations Failed
 -> Ensure PostgreSQL is running
