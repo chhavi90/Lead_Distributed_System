@@ -262,30 +262,30 @@ Test 1: Duplicate Prevention
 Test 2: Fair Allocation
 
 1.  Create 3 leads for Service 1
-2.  Check /test->tools → Generate Leads
+2.  Check /test-tools → Generate Leads
 3.  Verify each provider gets leads in round->robin order
 4.  Restart server
 5.  Create another lead
-6.  Verify round->robin continues from last position
+6.  Verify round-robin continues from last position
 
 Test 3: Concurrency
 
-1.  Use /test->tools → Generate 10 Leads Simultaneously
+1.  Use /test-tools → Generate 10 Leads Simultaneously
 2.  Monitor that all 10 leads are created successfully
 3.  Verify allocations are correct
 4.  Check no allocation duplication
 
-Test 4: Real->Time Updates
+Test 4: Real-Time Updates
 
 1.  Open Provider 1 dashboard
-2.  Open /request->service in new tab
+2.  Open /request-service in new tab
 3.  Submit lead for Service 1
 4.  Expected: Dashboard updates without refresh within 2 seconds
 5.  Check WebSocket connection indicator shows "Connected"
 
 Test 5: Webhook Idempotency
 
-1.  Go to /test->tools
+1.  Go to /test-tools
 2.  Click "Call Webhook 3x (Same ID)"
 3.  Expected: All 3 calls succeed
 4.  Provider quota should be 10 (not 30)
@@ -294,56 +294,56 @@ Test 5: Webhook Idempotency
 Error Handling
 
 The system gracefully handles:
--> Database connection failures
--> WebSocket disconnections (automatic reconnect)
--> Duplicate lead submissions
--> Quota exhaustion
--> Concurrent allocation conflicts
--> Invalid service/provider IDs
--> Network failures
+   -> Database connection failures
+   -> WebSocket disconnections (automatic reconnect)
+   -> Duplicate lead submissions
+   -> Quota exhaustion
+   -> Concurrent allocation conflicts
+   -> Invalid service/provider IDs
+   -> Network failures
 
 Performance Considerations
--> Database indexes on frequently queried fields
--> Connection pooling via Prisma
--> WebSocket efficient broadcasting (only to relevant clients)
--> Fair allocation O(n) complexity where n = pool size
--> Quota checks using indexed queries
+   -> Database indexes on frequently queried fields
+   -> Connection pooling via Prisma
+   -> WebSocket efficient broadcasting (only to relevant clients)
+   -> Fair allocation O(n) complexity where n = pool size
+   -> Quota checks using indexed queries
 
 Security
--> Input validation on all API endpoints
--> SQL injection prevention via Prisma ORM
--> CSRF protection ready (can add next->csrf)
--> No sensitive data in WebSocket messages
--> Rate limiting ready for webhook endpoints
+   -> Input validation on all API endpoints
+   -> SQL injection prevention via Prisma ORM
+   -> CSRF protection ready (can add next->csrf)
+   -> No sensitive data in WebSocket messages
+   -> Rate limiting ready for webhook endpoints
 
 Common Issues & Solutions
 WebSocket Connection Failed
--> Check custom server is running (not next dev)
--> Verify browser allows WebSocket connections
--> Check firewall allows port 5000
+   -> Check custom server is running (not next dev)
+   -> Verify browser allows WebSocket connections
+   -> Check firewall allows port 5000
 
 Migrations Failed
--> Ensure PostgreSQL is running
--> Check DATABASE_URL is correct
--> Run: `npx prisma migrate reset` (resets database)
+   -> Ensure PostgreSQL is running
+   -> Check DATABASE_URL is correct
+   -> Run: `npx prisma migrate reset` (resets database)
 
 Seed Failed
--> Database might already have data
--> Run: `npx prisma db seed` to retry
+   -> Database might already have data
+   -> Run: `npx prisma db seed` to retry
 
 API Endpoints
 Leads
--> `POST /api/leads` -> Create lead (triggers allocation)
--> `GET /api/leads` -> List all leads
+   -> `POST /api/leads` -> Create lead (triggers allocation)
+   -> `GET /api/leads` -> List all leads
 
 Services
--> `GET /api/services` -> List services
+   -> `GET /api/services` -> List services
 
 Provider
--> `GET /api/provider/[id]` -> Get provider data & assigned leads
+   -> `GET /api/provider/[id]` -> Get provider data & assigned leads
 
 Webhook
--> `POST /api/webhook/quota->reset` -> Reset quota (idempotent)
+   -> `POST /api/webhook/quota->reset` -> Reset quota (idempotent)
 
 Deployment:
 Railway/Heroku
