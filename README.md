@@ -226,7 +226,7 @@ LEAD_DISTRIBUTION_SYSTEM/
 │ ├── request-service.tsx
 │ ├── dashboard.tsx
 │ ├── test-tools.tsx
-│ └── \_app.tsx
+│ └── _app.tsx
 ├── lib/
 │ ├── allocation.ts
 │ └── websocket.ts
@@ -245,7 +245,7 @@ LEAD_DISTRIBUTION_SYSTEM/
 ├── server.js
 ├── next.config.js
 ├── package.json
-└── .env.example
+└── .env
 
 Testing:
 
