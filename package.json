@@ -10,7 +10,7 @@
   "build": "npx prisma generate && npx prisma db push && next build",
   "start": "NODE_ENV=production node server.js",
   "seed": "node scripts/seed.js"
-}
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
