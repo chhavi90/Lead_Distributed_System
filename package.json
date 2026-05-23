@@ -34,5 +34,8 @@
     "@types/react-dom": "^19.2.3",
     "@types/ws": "^8.18.1",
     "typescript": "^6.0.3"
+  },
+  "prisma": {
+    "seed": "node scripts/seed.js"
   }
 }
