@@ -5,11 +5,11 @@ A FullStack Lead Generation and Distribution System with real-time updates, fair
 ## Project Overview
 
 This system manages lead distribution across multiple service providers with:
--> Automatic lead allocation based on business rules
--> Fair distribution using round->robin allocation
--> Real->time dashboard updates via WebSocket
--> Webhook idempotency for safe quota resets
--> Concurrency handling for simultaneous lead creation
+      -> Automatic lead allocation based on business rules
+      -> Fair distribution using round->robin allocation
+      -> Real->time dashboard updates via WebSocket
+      -> Webhook idempotency for safe quota resets
+      -> Concurrency handling for simultaneous lead creation
 
 ## Key Features
 
@@ -34,19 +34,19 @@ Fair Allocation:
 
 ### 3. Provider Dashboard
 
--> Route: `/dashboard`
--> Real->time lead updates via WebSocket
--> Provider selection (8 providers available)
--> Statistics: quota, received leads, utilization rate
--> Live lead feed showing newly assigned requests
+      -> Route: `/dashboard`
+      -> Real->time lead updates via WebSocket
+      -> Provider selection (8 providers available)
+      -> Statistics: quota, received leads, utilization rate
+      -> Live lead feed showing newly assigned requests
 
 ### 4. Webhook Simulation & Testing
 
--> Route: `/test->tools`
--> Reset provider quota
--> Test webhook idempotency (call multiple times with same ID)
--> Generate 10 concurrent leads
--> Comprehensive test result logging
+      -> Route: `/test->tools`
+      -> Reset provider quota
+      -> Test webhook idempotency (call multiple times with same ID)
+      -> Generate 10 concurrent leads
+      -> Comprehensive test result logging
 
 ## Architecture:
 
@@ -82,66 +82,66 @@ Fair Allocation:
 
 ### Concurrency Handling
 
--> Database->level unique constraints prevent duplicate allocations
--> Allocation lock mechanism for atomic transactions
--> Webhook idempotency via externalId unique index
--> Fair allocation state atomic updates
+      -> Database->level unique constraints prevent duplicate allocations
+      -> Allocation lock mechanism for atomic transactions
+      -> Webhook idempotency via externalId unique index
+      -> Fair allocation state atomic updates
 
 ### Real-Time Communication
 
--> WebSocket server for live updates
--> Automatic client subscription by provider ID
--> Broadcasting new leads and quota updates
--> Connection status indicator on dashboard
+      -> WebSocket server for live updates
+      -> Automatic client subscription by provider ID
+      -> Broadcasting new leads and quota updates
+      -> Connection status indicator on dashboard
 
 ## Setup Instructions
 
 ### Prerequisites
 
--> Node.js 16+
--> PostgreSQL 12+
--> npm or yarn
+      -> Node.js 16+
+      -> PostgreSQL 12+
+      -> npm or yarn
 
 ### 1. Clone & Install:
 
-git clone <repository->url>
-cd prowider->system
-npm install
+      git clone <repository->url>
+      cd prowider->system
+      npm install
 
 ### 2. Database Setup:
 
-Create a PostgreSQL database:
-createdb prowider_db
+      Create a PostgreSQL database:
+      createdb prowider_db
 
 ### 3. Environment Configuration:
 
-Create `.env.local`:
-cp .env.example .env.local
+      Create `.env.local`:
+      cp .env.example .env.local
 
-Update with your database URL:
-env:
-DATABASE_URL="postgresql://user:password@localhost:5432/prowider_db"
-NEXT_PUBLIC_API_URL="http://localhost:5000"
-NODE_ENV="development"
+      Update with your database URL:
+      env:
+      DATABASE_URL="postgresql://user:password@localhost:5432/prowider_db"
+      NEXT_PUBLIC_API_URL="http://localhost:5000"
+      NODE_ENV="development"
 
 ### 4. Run Migrations:
 
-npm run migrate
+   npm run migrate
 
 ### 5. Seed Database:
 
-npm run seed
+      npm run seed
 
-This creates:
--> 3 Services (Service 1, 2, 3)
--> 8 Providers with 10 leads/month quota
--> Fair allocation state for each service
+      This creates:
+      -> 3 Services (Service 1, 2, 3)
+      -> 8 Providers with 10 leads/month quota
+      -> Fair allocation state for each service
 
 ### 6. Start Development Server:
 
-npm run dev
+      npm run dev
 
-Server runs at `http://localhost:5000`:
+      Server runs at `http://localhost:5000`:
 
 ## Usage Guide
 
